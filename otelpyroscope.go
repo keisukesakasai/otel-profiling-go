@@ -2,6 +2,7 @@ package otelpyroscope
 
 import (
 	"context"
+	"log"
 	"net/url"
 	"runtime/pprof"
 	"strconv"
@@ -151,8 +152,10 @@ func (w profileTracer) Start(ctx context.Context, spanName string, opts ...trace
 	isRoot := isRootSpan(trace.SpanContextFromContext(ctx))
 	ctx, span := w.tr.Start(ctx, spanName, opts...)
 	if w.p.config.RootOnly && !isRoot {
+		log.Println("Root Only & isn't Root")
 		return ctx, span
 	}
+	log.Println("profileTracer Start...")
 
 	s := spanWrapper{
 		Span:      span,
@@ -170,6 +173,9 @@ func (w profileTracer) Start(ctx context.Context, spanName string, opts ...trace
 	}
 	if span.SpanContext().IsSampled() && s.profileID != "" {
 		// Set profile_id pprof tag only if the span is sampled.
+		log.Println("======================================================")
+		log.Println(" Set profile_id pprof tag only if the span is sampled.")
+		log.Println("======================================================")
 		labels = append(labels, profileIDLabelName, s.profileID)
 	}
 
