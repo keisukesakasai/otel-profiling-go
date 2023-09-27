@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	profileIDSpanAttributeKey          = attribute.Key("pyroscope.profile_id")
+	profileIDSpanAttributeKey          = attribute.Key("pyroscope.profile.id")
 	profileURLSpanAttributeKey         = attribute.Key("pyroscope.profile.url")
 	profileBaselineURLSpanAttributeKey = attribute.Key("pyroscope.profile.baseline.url")
 	profileDiffURLSpanAttributeKey     = attribute.Key("pyroscope.profile.diff.url")
@@ -168,9 +168,9 @@ func (w profileTracer) Start(ctx context.Context, spanName string, opts ...trace
 	// Regardless of whether a span is sampled ot not, if configured,
 	// span_name pprof tag should be set to ensure profile consistency.
 	labels := make([]string, 0, 4)
-	// if w.p.config.AddSpanName && spanName != "" {
-	// 	labels = append(labels, spanNameLabelName, spanName)
-	// }
+	if w.p.config.AddSpanName && spanName != "" {
+		labels = append(labels, spanNameLabelName, spanName)
+	}
 	if span.SpanContext().IsSampled() && s.profileID != "" {
 		// Set profile_id pprof tag only if the span is sampled.
 		log.Println("======================================================")
