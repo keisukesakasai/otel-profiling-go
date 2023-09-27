@@ -228,7 +228,7 @@ func (s spanWrapper) End(options ...trace.SpanEndOption) {
 		s.setBaselineURLs()
 	}
 	s.Span.End(options...)
-	pprof.SetGoroutineLabels(s.ctx)
+	// pprof.SetGoroutineLabels(s.ctx)
 }
 
 func (s spanWrapper) setProfileURL() {
