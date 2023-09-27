@@ -175,9 +175,13 @@ func (w profileTracer) Start(ctx context.Context, spanName string, opts ...trace
 		// Set profile_id pprof tag only if the span is sampled.
 		log.Println("======================================================")
 		log.Println(" Set profile_id pprof tag only if the span is sampled.")
+		log.Println("profileID: ", s.profileID)
 		log.Println("======================================================")
 		labels = append(labels, profileIDLabelName, s.profileID)
 	}
+
+	log.Println("Labels, ", labels)
+	log.Println("pprof.Labels, ", pprof.Labels(labels...))
 
 	ctx = pprof.WithLabels(ctx, pprof.Labels(labels...))
 	pprof.SetGoroutineLabels(ctx)
