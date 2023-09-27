@@ -184,6 +184,12 @@ func (w profileTracer) Start(ctx context.Context, spanName string, opts ...trace
 	log.Println("pprof.Labels, ", pprof.Labels(labels...))
 
 	ctx = pprof.WithLabels(ctx, pprof.Labels(labels...))
+
+	log.Printf(
+		"span_name=%v, profile_id=%v",
+		ctx.Value("span_name"), ctx.Value("profile_id"),
+	)
+
 	pprof.SetGoroutineLabels(ctx)
 	s.pprofCtx = ctx
 	return ctx, &s
