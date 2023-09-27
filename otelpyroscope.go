@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	profileIDSpanAttributeKey          = attribute.Key("pyroscope.profile.id")
+	profileIDSpanAttributeKey          = attribute.Key("pyroscope.profile_id")
 	profileURLSpanAttributeKey         = attribute.Key("pyroscope.profile.url")
 	profileBaselineURLSpanAttributeKey = attribute.Key("pyroscope.profile.baseline.url")
 	profileDiffURLSpanAttributeKey     = attribute.Key("pyroscope.profile.diff.url")
